@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+      - name: C example (static and shared)
+        run: |
+          # Debug build: the release profile (LTO over eebus' generated model) is slow.
+          cargo build
+          cc -Wall -Wextra -Werror -Iinclude examples/heat_pump.c target/debug/libeebus_c.a -lpthread -ldl -lm -o target/heat_pump
+          cc -Wall -Wextra -Werror -Iinclude examples/heat_pump.c -Ltarget/debug -leebus_c -o target/heat_pump_dyn
+          # Starts, prints its SKI, stops on SIGTERM.
+          timeout -s TERM 3 target/heat_pump "$RUNNER_TEMP/state" || [ $? -eq 124 ]
+          test -f "$RUNNER_TEMP/state/identity.key.pem"

@@ -1,0 +1,30 @@
+[package]
+name = "eebus-c"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT"
+description = "C bindings for the eebus crate: a §14a controllable system (LPC/LPP + MPC) for C firmware"
+repository = "https://github.com/frane/eebus-c"
+authors = ["Frane Bandov <frane.bandov@gmail.com>"]
+readme = "README.md"
+keywords = ["eebus", "ffi", "lpc", "14a", "hems"]
+
+[lib]
+name = "eebus_c"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+eebus = { version = "0.10", default-features = false, features = ["std", "runtime", "mdns", "ring", "cert", "tls"] }
+tokio = { version = "1", features = ["rt", "time", "net"] }
+serde_json = "1"
+serde = "1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt", "time", "net", "macros"] }
+tempfile = "3"
