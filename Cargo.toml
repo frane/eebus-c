@@ -28,3 +28,8 @@ strip = true
 [dev-dependencies]
 tokio = { version = "1", features = ["rt", "time", "net", "macros"] }
 tempfile = "3"
+
+# Until hupe1980/eebus releases the keep-alive fix (frane/eebus, fix/keepalive-pong):
+# two hubs on a quiet link otherwise drop each other as unresponsive every few minutes.
+[patch.crates-io]
+eebus = { git = "https://github.com/frane/eebus", rev = "73f58c5a470ab01b5b63bca834dc5fcaa03d4d2d" }

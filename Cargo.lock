@@ -223,8 +223,7 @@ dependencies = [
 [[package]]
 name = "eebus"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf4fc79875f29b8bbc27d112557f68b84613daf2bdf769c61705819b38131d49"
+source = "git+https://github.com/frane/eebus?rev=73f58c5a470ab01b5b63bca834dc5fcaa03d4d2d#73f58c5a470ab01b5b63bca834dc5fcaa03d4d2d"
 dependencies = [
  "futures-util",
  "mdns-sd",
