@@ -223,7 +223,7 @@ dependencies = [
 [[package]]
 name = "eebus"
 version = "0.10.0"
-source = "git+https://github.com/frane/eebus?rev=73f58c5a470ab01b5b63bca834dc5fcaa03d4d2d#73f58c5a470ab01b5b63bca834dc5fcaa03d4d2d"
+source = "git+https://github.com/frane/eebus?rev=565b9132ac612111271eafd1f68bf2a0afd7f4a1#565b9132ac612111271eafd1f68bf2a0afd7f4a1"
 dependencies = [
  "futures-util",
  "mdns-sd",
